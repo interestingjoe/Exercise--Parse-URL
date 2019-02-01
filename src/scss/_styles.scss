@@ -1,0 +1,56 @@
+//////////////////////////////Mobile View
+#home {
+    .parser-container {
+        form {
+            margin: 0 0 30px;
+
+            #input {
+                width: 90%;
+                padding: 15px 30px;
+                border: 1px solid black;
+                border-radius: 20px;
+                font-size: .90em;
+            }
+        }
+        .outputContainer {
+            margin: 0 0 0 30px;
+            width: 90%;
+
+            .output {
+                margin: 0 0 15px;
+                font-size: .90em;
+
+                #tld {
+                    color: blue;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: red;
+                    }
+                }
+                #relativePath {
+                    color: green;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: red;
+                    }
+                }
+            }
+            #cta {
+
+            }
+        }
+    }
+}
+
+//////////////////////////////Additional Global Styles
+@import "global-styles";
+
+
+//////////////////////////////Desktop View
+@media (min-width: $desktop) {
+    #home {
+
+    }
+}

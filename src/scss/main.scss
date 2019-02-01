@@ -1,0 +1,11 @@
+/******************************
+To build Sass files:
+Build command: node-sass src/scss/ -o css/
+Build command convention: node-sass [source/directory] -o [destination/directory]
+******************************/
+
+@import "fonts";
+@import "variables";
+@import "mixin";
+@import "reset";
+@import "styles";

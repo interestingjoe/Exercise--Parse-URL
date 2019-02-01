@@ -1,0 +1,125 @@
+/******************************
+To build Sass files:
+Build command: node-sass src/scss/ -o css/
+Build command convention: node-sass [source/directory] -o [destination/directory]
+******************************/
+body {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400;
+  color: black; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  vertical-align: top; }
+
+p, span {
+  margin: 0;
+  padding: 0;
+  color: black;
+  vertical-align: top;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400; }
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid lightgray; }
+
+img {
+  vertical-align: top; }
+
+a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400;
+  color: black; }
+  a:hover {
+    text-decoration: none; }
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  vertical-align: top; }
+  ol li, ul li {
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1em;
+    font-weight: 400; }
+
+button {
+  padding: 13px 20px;
+  font-size: .90em;
+  border: initial;
+  border-radius: 5px;
+  color: white;
+  background-color: lightskyblue;
+  cursor: pointer; }
+
+form fieldset {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400; }
+  form fieldset legend {
+    margin: 0;
+    padding: 0;
+    border: initial;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1em;
+    font-weight: 400; }
+  form fieldset input {
+    margin: 0;
+    padding: 10px 20px;
+    border: 1px solid lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1em;
+    font-weight: 400; }
+
+#home .parser-container form {
+  margin: 0 0 30px; }
+  #home .parser-container form #input {
+    width: 90%;
+    padding: 15px 30px;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-size: .90em; }
+
+#home .parser-container .outputContainer {
+  margin: 0 0 0 30px;
+  width: 90%; }
+  #home .parser-container .outputContainer .output {
+    margin: 0 0 15px;
+    font-size: .90em; }
+    #home .parser-container .outputContainer .output #tld {
+      color: blue;
+      cursor: pointer; }
+      #home .parser-container .outputContainer .output #tld:hover {
+        color: red; }
+    #home .parser-container .outputContainer .output #relativePath {
+      color: green;
+      cursor: pointer; }
+      #home .parser-container .outputContainer .output #relativePath:hover {
+        color: red; }
+
+.hide {
+  display: none; }
