@@ -98,15 +98,14 @@ form fieldset {
 #home .parser-container form {
   margin: 0 0 30px; }
   #home .parser-container form #input {
-    width: 90%;
+    width: 96%;
     padding: 15px 30px;
     border: 1px solid black;
     border-radius: 20px;
     font-size: .90em; }
 
 #home .parser-container .outputContainer {
-  margin: 0 0 0 30px;
-  width: 90%; }
+  margin: 0 30px; }
   #home .parser-container .outputContainer .output {
     margin: 0 0 15px;
     font-size: .90em; }
