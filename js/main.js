@@ -1,40 +1,62 @@
-let inputForm = document.getElementById("input");
-let outputContainer = document.getElementsByClassName("outputContainer");
-let tldContainer = document.getElementById("tld");
-let relativePathContainer = document.getElementById("relativePath");
-let messageContainer = document.getElementById("message");
-let url = "";
-let tld = "";
-let relativePath = "";
-let isHide = true;
+let variable = {
+    inputForm: document.getElementById("input"),
+    outputContainer: document.getElementsByClassName("outputContainer"),
+    tldContainer: document.getElementById("tld"),
+    relativePathContainer: document.getElementById("relativePath"),
+    messageContainer: document.getElementById("message"),
+    url: "",
+    tld: "",
+    relativePath: "",
+    isHide: true
+}
 
 let listener = {
     setInput: () => {
-        inputForm.addEventListener("input", parseURL.parse);
+        variable.inputForm.addEventListener("input", parseURL.parse);
     },
     setInput: () => {
-        inputForm.addEventListener("input", parseURL.parse);
+        variable.inputForm.addEventListener("input", parseURL.parse);
     },
     setTLD: () => {
-        tldContainer.addEventListener("click", parseURL.copy);
+        variable.tldContainer.addEventListener("click", parseURL.copy);
     },
     setRelativePath: () => {
-        relativePathContainer.addEventListener("click", parseURL.copy);
+        variable.relativePathContainer.addEventListener("click", parseURL.copy);
     },
     removeTLD: () => {
-        tldContainer.removeEventListener("click", parseURL.copy);
+        variable.tldContainer.removeEventListener("click", parseURL.copy);
     },
     removeRelativePath: () => {
-        relativePathContainer.removeEventListener("click", parseURL.copy);
+        variable.relativePathContainer.removeEventListener("click", parseURL.copy);
+    }
+}
+
+let string = {
+    toLower: (str) => {
+        return str.toLower();
+    },
+    hasHTTP: (str) => {
+        let x = str.substr(0, 5);
+        return x = x==="http" ? true : false;
+    },
+    hasHTTPS: (str) => {
+        let x = str.substr(0, 5);
+        return x = x==="https" ? true : false;
+    },
+    search: (str) => {
+        return str.search();
+    },
+    isSecureServer: (str) => {
+        return str.includes();
     }
 }
 let message = {
     setCopied: () => {
-        messageContainer.innerHTML = "Copied!";
+        variable.messageContainer.innerHTML = "Copied!";
         setTimeout(message.blank(), 2000);
     },
     blank: () => {
-        messageContainer.innerHTML = "";
+        variable.messageContainer.innerHTML = "";
     }
 }
 let parseURL = {
@@ -46,11 +68,11 @@ let parseURL = {
 
         if(parseURL.isBlank(tempURL)!==true) {
             if(tempURL.includes(".org")) {
-                url = tempURL;
-                tld = parseURL.getTLD();
-                relativePath = parseURL.getRelativePath();
+                variable.url = tempURL;
+                variable.tld = parseURL.getTLD();
+                variable.relativePath = parseURL.getRelativePath();
                 parseURL.hideOutput(false);
-                parseURL.setOutput(tld, relativePath);
+                parseURL.setOutput(variable.tld, variable.relativePath);
                 listener.setTLD();
                 listener.setRelativePath();
             } else {
@@ -70,21 +92,21 @@ let parseURL = {
         return x = e==="" || e===" " || e==="undefined" ? true : false;
     },
     hideOutput: (bool) => {
-        isHide = bool;
+        variable.isHide = bool;
 
-        if(isHide===true) {
-            outputContainer[0].classList.add("hide");
+        if(variable.isHide===true) {
+            variable.outputContainer[0].classList.add("hide");
         } else {
-            outputContainer[0].classList.remove("hide");
+            variable.outputContainer[0].classList.remove("hide");
         }
     },
-    getURL: () => inputForm.value,
+    getURL: () => variable.inputForm.value,
     getTLD: () => {
-        let beforeORG = url.split(".org")[0];
+        let beforeORG = variable.url.split(".org")[0];
         return x = beforeORG + ".org";
     },
     getRelativePath: () => {
-        let afterORG = url.split(".org")[1];
+        let afterORG = variable.url.split(".org")[1];
         return x = afterORG!=="" || afterORG!== "/ " ? afterORG : "";
     },
     copy: (e) => {
@@ -92,12 +114,12 @@ let parseURL = {
         message.setCopied();
     },
     setOutputBlank: () => {
-        tldContainer.innerHTML = "";
-        relativePathContainer.innerHTML = "";
+        variable.tldContainer.innerHTML = "";
+        variable.relativePathContainer.innerHTML = "";
     },
     setOutput: (tld, relativePath) => {
-        tldContainer.innerHTML = tld;
-        relativePathContainer.innerHTML = relativePath;
+        variable.tldContainer.innerHTML = tld;
+        variable.relativePathContainer.innerHTML = relativePath;
     }
 }
 
