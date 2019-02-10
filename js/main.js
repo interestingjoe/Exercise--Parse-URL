@@ -66,21 +66,15 @@ let parseURL = {
         listener.setInput();
     },
     control: () => {
-        let tempURL = parseURL.getURL().toLowerCase();
+        let tempURL = string.substr(parseURL.getURL().toLowerCase());
 
-        if(string.substr(tempURL)==="https") {
+        if(tempURL==="https") {
             console.log("has HTTPS");
-        } else if(string.substr(tempURL)==="http"+":") {
+        } else if(tempURL.split(":")[0]==="http") {
             console.log("has HTTP");
         } else {
             console.log("Does not have ANY protocol.");
         }
-        //check for HTTPS
-        //If no HTTPS check for HTTP
-        //If no HTTP add HTTPS
-        //If HTTP replace with HTTPS
-
-        //If HTTPS
     },
     hasProtocol: () => {
 
