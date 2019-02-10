@@ -40,16 +40,17 @@ let message = {
         variable.messageContainer.innerHTML = "";
     }
 }
+let string = {
+    substr: val => parseURL.getURL().substr(0, val).toLowerCase()
+}
 let parseURL = {
     main: () => {
         listener.setInput();
     },
     control: () => {
-        let tempURL = parseURL.getURL().substr(0, 5).toLowerCase();
-
-        if(tempURL==="https") {
+        if(string.substr(5)==="https") {
             console.log("has HTTPS");
-        } else if(tempURL.split(tempURL.charAt(4))[0]==="http") {
+        } else if(string.substr(4)==="http") {
             console.log("has HTTP");
         } else {
             console.log("Does not have ANY protocol.");
