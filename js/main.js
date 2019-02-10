@@ -70,7 +70,7 @@ let parseURL = {
 
         if(tempURL==="https") {
             console.log("has HTTPS");
-        } else if(tempURL.split(":")[0]==="http") {
+        } else if(tempURL.split(tempURL.charAt(4))[0]==="http") {
             console.log("has HTTP");
         } else {
             console.log("Does not have ANY protocol.");
