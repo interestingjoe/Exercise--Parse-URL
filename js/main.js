@@ -8,6 +8,8 @@ let variable = {
     tld: "",
     relativePath: "",
     isHide: true,
+
+    tempURL: "",
     url: []
 }
 
@@ -49,14 +51,16 @@ let parseURL = {
         listener.setInput();
     },
     control: () => {
-        if(string.substr(5)==="https") {
+        parseURL.setURL();
+
+        if(string.substr(8)==="https://") {
             console.log("has HTTPS");
-            variable.url[0] = "https";
+            variable.url[0] = "https://";
             //Proceed to check TLD
-        } else if(string.substr(4)==="http") {
+        } else if(string.substr(7)==="http://") {
             console.log("has HTTP");
             //Add S
-            variable.url[0] = "http";
+            variable.url[0] = "http://";
             //Proceed to check TLD
         } else {
             console.log("Does not have ANY protocol.");
@@ -105,7 +109,8 @@ let parseURL = {
             variable.outputContainer[0].classList.remove("hide");
         }
     },
-    getURL: () => variable.inputForm.value,
+    setURL: () => variable.tempURL = variable.inputForm.value,
+    getURL: () => variable.tempURL,
     getTLD: () => {
         let beforeORG = variable.url.split(".org")[0];
         return x = beforeORG + ".org";
