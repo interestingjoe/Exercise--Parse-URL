@@ -12,16 +12,16 @@ let variable = {
 
 let listener = {
     setInput: () => {
-        variable.inputForm.addEventListener("input", parseURL.parse);
-    },
-    setInput: () => {
-        variable.inputForm.addEventListener("input", parseURL.parse);
+        variable.inputForm.addEventListener("input", parseURL.control);
     },
     setTLD: () => {
         variable.tldContainer.addEventListener("click", parseURL.copy);
     },
     setRelativePath: () => {
         variable.relativePathContainer.addEventListener("click", parseURL.copy);
+    },
+    removeInput: () => {
+        variable.inputForm.removeEventListener("input", parseURL.parse);
     },
     removeTLD: () => {
         variable.tldContainer.removeEventListener("click", parseURL.copy);
@@ -33,21 +33,23 @@ let listener = {
 
 let string = {
     toLower: (str) => {
-        return str.toLower();
+        return str.toLowerCase();
     },
-    hasHTTP: (str) => {
+    hasThis: (str, arg) => {
         let x = str.substr(0, 5);
-        return x = x==="http" ? true : false;
+        return x = x===arg ? true : false;
     },
-    hasHTTPS: (str) => {
-        let x = str.substr(0, 5);
-        return x = x==="https" ? true : false;
+    substr: (str) => {
+        return str.substr(0, 5);
     },
-    search: (str) => {
-        return str.search();
+    include: (str, arg) => {
+        return str.includes(arg);
     },
-    isSecureServer: (str) => {
-        return str.includes();
+    search: (str, arg) => {
+        return str.search(arg);
+    },
+    isSecureServer: (str, arg) => {
+        return str.includes(arg);
     }
 }
 let message = {
@@ -62,6 +64,26 @@ let message = {
 let parseURL = {
     main: () => {
         listener.setInput();
+    },
+    control: () => {
+        let tempURL = parseURL.getURL().toLowerCase();
+
+        if(string.substr(tempURL)==="https") {
+            console.log("has HTTPS");
+        } else if(string.substr(tempURL)==="http"+":") {
+            console.log("has HTTP");
+        } else {
+            console.log("Does not have ANY protocol.");
+        }
+        //check for HTTPS
+        //If no HTTPS check for HTTP
+        //If no HTTP add HTTPS
+        //If HTTP replace with HTTPS
+
+        //If HTTPS
+    },
+    hasProtocol: () => {
+
     },
     parse: () => {
         let tempURL = parseURL.getURL();
