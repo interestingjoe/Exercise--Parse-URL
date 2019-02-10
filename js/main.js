@@ -31,27 +31,6 @@ let listener = {
     }
 }
 
-let string = {
-    toLower: (str) => {
-        return str.toLowerCase();
-    },
-    hasThis: (str, arg) => {
-        let x = str.substr(0, 5);
-        return x = x===arg ? true : false;
-    },
-    substr: (str) => {
-        return str.substr(0, 5);
-    },
-    include: (str, arg) => {
-        return str.includes(arg);
-    },
-    search: (str, arg) => {
-        return str.search(arg);
-    },
-    isSecureServer: (str, arg) => {
-        return str.includes(arg);
-    }
-}
 let message = {
     setCopied: () => {
         variable.messageContainer.innerHTML = "Copied!";
@@ -66,7 +45,7 @@ let parseURL = {
         listener.setInput();
     },
     control: () => {
-        let tempURL = string.substr(parseURL.getURL().toLowerCase());
+        let tempURL = parseURL.getURL().substr(0, 5).toLowerCase();
 
         if(tempURL==="https") {
             console.log("has HTTPS");
