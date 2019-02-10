@@ -7,7 +7,8 @@ let variable = {
     url: "",
     tld: "",
     relativePath: "",
-    isHide: true
+    isHide: true,
+    url: []
 }
 
 let listener = {
@@ -50,10 +51,18 @@ let parseURL = {
     control: () => {
         if(string.substr(5)==="https") {
             console.log("has HTTPS");
+            variable.url[0] = "https";
+            //Proceed to check TLD
         } else if(string.substr(4)==="http") {
             console.log("has HTTP");
+            //Add S
+            variable.url[0] = "http";
+            //Proceed to check TLD
         } else {
             console.log("Does not have ANY protocol.");
+            //Add https
+            //Save HTTPS to urlArr[0]
+            //Proceed to check TLD
         }
     },
     hasProtocol: () => {
