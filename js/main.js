@@ -9,8 +9,12 @@ let variable = {
     relativePath: "",
     isHide: true,
 
+    https: "https://",
+    http: "http://",
     tempURL: "",
-    url: []
+    tempDomain: "",
+    url: [],
+    isHTTPS: false
 }
 
 let listener = {
@@ -50,17 +54,16 @@ let parseURL = {
     main: () => {
         listener.setInput();
     },
-    control: () => {
-        parseURL.setURL();
-
-        if(string.substr(8)==="https://") {
+    setProtocol: () => {
+        if(string.substr(8)===variable.https) {
             console.log("has HTTPS");
-            variable.url[0] = "https://";
-            //Proceed to check TLD
+            variable.isHTTPS = true;
+            return variable.https;
         } else if(string.substr(7)==="http://") {
             console.log("has HTTP");
             //Add S
             variable.url[0] = "http://";
+            variable.isHTTPS = false;
             //Proceed to check TLD
         } else {
             console.log("Does not have ANY protocol.");
@@ -69,7 +72,32 @@ let parseURL = {
             //Proceed to check TLD
         }
     },
-    hasProtocol: () => {
+    setDomain: () => {
+        return variable.tempDomain.split("/")[0];
+    },
+    setRelativePath: () => {
+        return variable.tempDomain.match(/\/.*$/i)[0];
+    },
+    output: () => {
+        console.log(variable.url[0]);
+        console.log(variable.url[1]);
+        console.log(variable.url[2]);
+    },
+    control: () => {
+        variable.tempURL = parseURL.getInput();
+        variable.url[0] = parseURL.setProtocol();
+
+        if(variable.isHTTPS) {
+            variable.tempDomain = variable.tempURL.split(variable.https)[1];
+        } else {
+            variable.tempDomain = variable.tempURL.split(variable.http)[1];
+        }
+
+        variable.url[1] = parseURL.setDomain();
+        variable.url[2] = parseURL.setRelativePath();
+        parseURL.output();
+    },
+    checkTLD: () => {
 
     },
     parse: () => {
@@ -109,13 +137,13 @@ let parseURL = {
             variable.outputContainer[0].classList.remove("hide");
         }
     },
-    setURL: () => variable.tempURL = variable.inputForm.value,
+    getInput: () => variable.inputForm.value,
     getURL: () => variable.tempURL,
     getTLD: () => {
         let beforeORG = variable.url.split(".org")[0];
         return x = beforeORG + ".org";
     },
-    getRelativePath: () => {
+    getRelativePath1: () => {
         let afterORG = variable.url.split(".org")[1];
         return x = afterORG!=="" || afterORG!== "/ " ? afterORG : "";
     },
