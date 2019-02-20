@@ -13,7 +13,9 @@
 
     https = "https://";
     http = "http://";
+    tempURI = "";
     tempURL = "";
+    tempHost = "";
     tempDomain = "";
     isHTTPS = false;
     url = [];
@@ -21,26 +23,27 @@
     //1 = Subdomain
     //2 = Domain
     //3 = Domain Extension
-    //4 = Parameters
+    //4 = Relative Path
+    //5 = Parameters
 
     let listener = {
         setInput: () => {
-            inputForm.addEventListener("input", parseURL.control);
+            inputForm.addEventListener("input", parse.control);
         },
         setTLD: () => {
-            tldContainer.addEventListener("click", parseURL.copy);
+            tldContainer.addEventListener("click", parse.copy);
         },
         setRelativePath: () => {
-            relativePathContainer.addEventListener("click", parseURL.copy);
+            relativePathContainer.addEventListener("click", parse.copy);
         },
         removeInput: () => {
-            inputForm.removeEventListener("input", parseURL.parse);
+            inputForm.removeEventListener("input", parse.parse);
         },
         removeTLD: () => {
-            tldContainer.removeEventListener("click", parseURL.copy);
+            tldContainer.removeEventListener("click", parse.copy);
         },
         removeRelativePath: () => {
-            relativePathContainer.removeEventListener("click", parseURL.copy);
+            relativePathContainer.removeEventListener("click", parse.copy);
         }
     }
 
@@ -54,89 +57,113 @@
         }
     }
     let string = {
-        substr: val => parseURL.getURL().substr(0, val).toLowerCase()
+        substr: (str, val) => {str.substr(0, val).toLowerCase()}
     }
-    let parseURL = {
+    let parse = {
         main: () => {
             listener.setInput();
         },
-        setProtocol: () => {
-            if(string.substr(8)===https) {
+        setProtocol: (str) => {
+            if(str.substr(8)===https) {
                 console.log("has HTTPS");
                 isHTTPS = true;
                 return https;
-            } else if(string.substr(7)==="http://") {
+            } else if(str.substr(7)===http) {
                 console.log("has HTTP");
                 isHTTPS = false;
                 return http;
             } else {
                 console.log("Does not have ANY protocol.");
+                //tempURI = https + tempURI;
                 isHTTPS = true;
                 return https;
             }
         },
-        setDomain: () => {
-            return tempDomain.split("/")[0];
+        extractProtocol: (str, pro) => {
+            return str.split(pro)[1];
+        },
+        setHost: (str) => {
+            return str.split(/(\/)/)[0];
+        },
+        splitDot: (str, val) => {
+            return str.split(/\./)[val];
+        },
+        setDomain: (str) => {
+            return str.split("/")[1];
         },
         setRelativePath: () => {
-            return tempDomain.match(/\/.*$/i)[0];
+            return tempURL.match(/\/.*$/i)[0];
         },
         output: () => {
-            console.log(url[0]);
-            console.log(url[1]);
-            console.log(url[2]);
-        },
-        getProtocol: () => {
-            return parseURL.setProtocol();
-        },
-        getSubdomain: () => {
-            return parseURL.setProtocol();
+            console.log("url[0] ", url[0]);
+            console.log("url[1] ", url[1]);
+            console.log("url[2] ", url[2]);
+            console.log("url[3] ", url[3]);
+            console.log("url[4] ", url[4]);
+            console.log("url[5] ", url[5]);
         },
         control: () => {
-            tempURL = parseURL.getInput();
+            tempURI = parse.getInput();
 
-            url[0] = parseURL.getProtocol();
-            url[1] = parseURL.getSubdomain();
-            url[2] = parseURL.getDomain();
-            url[3] = parseURL.getDomainExtension();
-            url[4] = parseURL.getParameters();
+            url[0] = parse.setProtocol(tempURI);
+            tempURL = isHTTPS ? parse.extractProtocol(tempURI, https) : parse.extractProtocol(tempURI, http);
+            console.log("-------------", tempURI);
+            tempHost = parse.setHost(tempURL);
 
-            if(isHTTPS) {
-                tempDomain = tempURL.split(https)[1];
-            } else {
-                tempDomain = tempURL.split(http)[1];
+            var tempArr = [];
+            for(var i=0; i<str.length;i++) {
+                if (str[i] === "s") indices.push(i);
             }
 
-            url[1] = parseURL.setDomain();
-            url[2] = parseURL.setRelativePath();
-            parseURL.output();
+            let dotLen = tempHost.match(/\./g).length;
+            if(dotLen === 2) {
+                url[1] = parse.splitDot(tempHost, 0);
+                url[2] = parse.splitDot(tempHost, 1);
+            } else if(dotLen === 1) {
+                url[1] = "";
+                url[2] = parse.splitDot(tempHost, 0);
+            } else {
+                url[1] = "www";
+            }
+            console.log("tempURI: ", tempURI);
+            console.log("tempURL: ", tempURL);
+            console.log("tempHost: ", tempHost);
+            console.log("tempDomain: ", tempDomain);
+/*
+            url[1] = ;
+            url[2] = parse.setDomain();
+            url[3] = parse.setDomainExtension();
+            url[4] = parse.setRelativePath();
+            url[5] = parse.setParameters();
+*/
+            parse.output();
         },
         checkTLD: () => {
 
         },
         parse: () => {
-            let tempURL = parseURL.getURL();
+            let tempURI = parse.getURL();
 
-            if(parseURL.isBlank(tempURL)!==true) {
-                if(tempURL.includes(".org")) {
-                    url = tempURL;
-                    tld = parseURL.getTLD();
-                    relativePath = parseURL.getRelativePath();
-                    parseURL.hideOutput(false);
-                    parseURL.setOutput(tld, relativePath);
+            if(parse.isBlank(tempURI)!==true) {
+                if(tempURI.includes(".org")) {
+                    url = tempURI;
+                    tld = parse.getTLD();
+                    relativePath = parse.getRelativePath();
+                    parse.hideOutput(false);
+                    parse.setOutput(tld, relativePath);
                     listener.setTLD();
                     listener.setRelativePath();
                 } else {
-                    parseURL.setOutputBlank();
+                    parse.setOutputBlank();
                     listener.removeTLD();
                     listener.removeRelativePath();
-                    parseURL.hideOutput(true);
+                    parse.hideOutput(true);
                 }
             } else {
-                parseURL.setOutputBlank();
+                parse.setOutputBlank();
                 listener.removeTLD();
                 listener.removeRelativePath();
-                parseURL.hideOutput(true);
+                parse.hideOutput(true);
             }
         },
         isBlank: (e) => {
@@ -152,7 +179,7 @@
             }
         },
         getInput: () => inputForm.value,
-        getURL: () => tempURL,
+        getURL: () => tempURI,
         getTLD: () => {
             let beforeORG = url.split(".org")[0];
             return x = beforeORG + ".org";
@@ -177,6 +204,6 @@
     $(document).ready(() => {
         console.log(1);
         console.log(2);
-        parseURL.main();
+        parse.main();
     });
 })();
