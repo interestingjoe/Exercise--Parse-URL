@@ -1,6 +1,101 @@
 (() => {
     console.log(3);
     console.log(4);
+    const inputForm = document.getElementById("input");
+    const outputContainer = document.getElementsByClassName("outputContainer");
+    const messageContainer = document.getElementById("message");
+    let url = "";
+    let https = "https:";
+    let http = "http:";
+    let isHide = true;
+
+    let listener = {
+        setInput: () => {
+            inputForm.addEventListener("input", parse.control);
+        },
+        setHostname: () => {
+            hostnameContainer.addEventListener("click", output.copy);
+        },
+        setRelativePath: () => {
+            relativePathContainer.addEventListener("click", output.copy);
+        },
+        removeInput: () => {
+            inputForm.removeEventListener("input", parse.parse);
+        },
+        removeHostname: () => {
+            hostnameContainer.removeEventListener("click", output.copy);
+        },
+        removeRelativePath: () => {
+            relativePathContainer.removeEventListener("click", output.copy);
+        }
+    }
+    let message = {
+        setCopied: () => {
+            messageContainer.innerHTML = "Copied!";
+            setTimeout(message.blank(), 2000);
+        },
+        blank: () => {
+            messageContainer.innerHTML = "";
+        }
+    }
+    let output = {
+        copy: (e) => {
+            console.log(e.target.innerHTML);
+            message.setCopied();
+        },
+        hideOutput: (bool) => {
+            isHide = bool;
+
+            if(isHide===true) {
+                outputContainer[0].classList.add("hide");
+            } else {
+                outputContainer[0].classList.remove("hide");
+            }
+        },
+        setOutputBlank: () => {
+            hostnameContainer.innerHTML = "";
+            relativePathContainer.innerHTML = "";
+        },
+        setOutput: (hostname, relativePath) => {
+            hostnameContainer.innerHTML = hostname;
+            relativePathContainer.innerHTML = relativePath;
+        }
+    }
+    let parse = {
+        init: () => {
+            listener.setInput();
+        },
+        control: () => {
+            let input = parse.getInput();
+            if(input) {
+                url = parse.setURL(input);
+                console.log("url: ", url);
+            } else {
+                url = "";
+                console.log("url: ", url);
+            }
+        },
+        setURL: (e) => {
+            return new URL(e);
+        },
+        isBlank: (e) => {
+            return x = e==="" || e===" " || e==="undefined" ? true : false;
+        },
+        getInput: () => inputForm.value
+    }
+
+
+    $(document).ready(() => {
+        console.log(1);
+        console.log(2);
+        parse.init();
+    });
+})();
+
+/*
+(() => {
+    console.log(3);
+    console.log(4);
     inputForm = document.getElementById("input");
     outputContainer = document.getElementsByClassName("outputContainer");
     tldContainer = document.getElementById("tld");
@@ -129,13 +224,11 @@
             console.log("tempURL: ", tempURL);
             console.log("tempHost: ", tempHost);
             console.log("tempDomain: ", tempDomain);
-/*
-            url[1] = ;
-            url[2] = parse.setDomain();
-            url[3] = parse.setDomainExtension();
-            url[4] = parse.setRelativePath();
-            url[5] = parse.setParameters();
-*/
+
+//            url[3] = parse.setDomainExtension();
+//            url[4] = parse.setRelativePath();
+//            url[5] = parse.setParameters();
+
             parse.output();
         },
         checkTLD: () => {
@@ -207,3 +300,4 @@
         parse.main();
     });
 })();
+*/
