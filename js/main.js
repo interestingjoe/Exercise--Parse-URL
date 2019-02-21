@@ -4,9 +4,11 @@
     const inputForm = document.getElementById("input");
     const outputContainer = document.getElementsByClassName("outputContainer");
     const messageContainer = document.getElementById("message");
-    let url = "";
     let https = "https:";
     let http = "http:";
+    let url = "";
+    let hostArr = [];
+    let subdomain = "";
     let isHide = true;
 
     let listener = {
@@ -39,6 +41,11 @@
         }
     }
     let output = {
+        toConsole: () => {
+            console.log("url: ", url);
+            console.log("hostArr[]: ", hostArr);
+            console.log("subdomain: ", subdomain);
+        },
         copy: (e) => {
             console.log(e.target.innerHTML);
             message.setCopied();
@@ -69,19 +76,38 @@
             let input = parse.getInput();
             if(input) {
                 url = parse.setURL(input);
-                console.log("url: ", url);
+                hostArr = parse.setHostArr(url.hostname);
+                subdomain = parse.setSubdomain(hostArr);
             } else {
                 url = "";
-                console.log("url: ", url);
             }
+            output.toConsole();
         },
+        getInput: () => inputForm.value,
         setURL: (e) => {
             return new URL(e);
         },
+        setHostArr: (str) => {
+            return str.split(".");
+        },
+        setSubdomain: (arr) => {
+            let len = arr.length;
+            let sub = "";
+
+            arr.forEach((item, i) => {
+                if(!(i>=len-2)) {
+                    let dot = "";
+                    if(!(i>=len-3)) {
+                        dot = ".";
+                    }
+                    sub += item + dot;
+                }
+            });
+            return sub;
+        },
         isBlank: (e) => {
             return x = e==="" || e===" " || e==="undefined" ? true : false;
-        },
-        getInput: () => inputForm.value
+        }
     }
 
 
