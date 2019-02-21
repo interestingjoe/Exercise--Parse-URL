@@ -43,7 +43,7 @@
     let output = {
         toConsole: () => {
             console.log("url: ", url);
-            console.log("hostArr[]: ", hostArr);
+            console.log("hostArr: ", hostArr);
             console.log("subdomain: ", subdomain);
         },
         copy: (e) => {
@@ -79,7 +79,7 @@
                 hostArr = parse.setHostArr(url.hostname);
                 subdomain = parse.setSubdomain(hostArr);
             } else {
-                url = "";
+                parse.reset();
             }
             output.toConsole();
         },
@@ -97,13 +97,18 @@
             arr.forEach((item, i) => {
                 if(!(i>=len-2)) {
                     let dot = "";
-                    if(!(i>=len-3)) {
+                    if(!(i>=len-3) && item!=="") {
                         dot = ".";
                     }
                     sub += item + dot;
                 }
             });
             return sub;
+        },
+        reset: () => {
+            url = "";
+            hostArr = [];
+            subdomain = "";
         },
         isBlank: (e) => {
             return x = e==="" || e===" " || e==="undefined" ? true : false;
