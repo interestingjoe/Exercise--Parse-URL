@@ -140,13 +140,12 @@
                 parse.reset();
                 console.log("Is blank");
             }
-
-            output.toConsole();
         },
         control: (input) => {
             url = parse.setURL(input);
             hostArr = parse.setHostArr(url.hostname);
             subdomain = parse.setSubdomain(hostArr);
+            output.toConsole();
         },
         getInput: () => inputForm.value,
         isValidURL: (str) => {
