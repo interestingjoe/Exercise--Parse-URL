@@ -3,6 +3,14 @@
     console.log(4);
     const inputForm = document.getElementById("input");
     const outputContainer = document.getElementsByClassName("outputContainer");
+
+    const protocolOutput = document.getElementById("protocol");
+    const subdomainOutput = document.getElementById("subdomain");
+    const domainOutput = document.getElementById("domain");
+    const extensionOutput = document.getElementById("extension");
+    const pathnameOutput = document.getElementById("pathname");
+    const parametersOutput = document.getElementById("parameters");
+
     const messageContainer = document.getElementById("message");
     let https = "https:";
     let http = "http:";
@@ -15,20 +23,45 @@
         setInput: () => {
             inputForm.addEventListener("input", parse.control);
         },
-        setHostname: () => {
-            hostnameContainer.addEventListener("click", output.copy);
+        setProtocol: () => {
+            protocolOutput.addEventListener("click", output.copy);
         },
-        setRelativePath: () => {
-            relativePathContainer.addEventListener("click", output.copy);
+        setSubdomain: () => {
+            subdomainOutput.addEventListener("click", output.copy);
         },
+        setDomain: () => {
+            domainOutput.addEventListener("click", output.copy);
+        },
+        setExtension: () => {
+            extensionOutput.addEventListener("click", output.copy);
+        },
+        setPathname: () => {
+            pathnameOutput.addEventListener("click", output.copy);
+        },
+        setParameters: () => {
+            parametersOutput.addEventListener("click", output.copy);
+        },
+
         removeInput: () => {
-            inputForm.removeEventListener("input", parse.parse);
+            inputForm.removeEventListener("input", parse.control);
         },
-        removeHostname: () => {
-            hostnameContainer.removeEventListener("click", output.copy);
+        removeProtocol: () => {
+            protocolOutput.removeEventListener("click", output.copy);
         },
-        removeRelativePath: () => {
-            relativePathContainer.removeEventListener("click", output.copy);
+        removeSubdomain: () => {
+            subdomainOutput.removeEventListener("click", output.copy);
+        },
+        removeDomain: () => {
+            domainOutput.removeEventListener("click", output.copy);
+        },
+        removeExtension: () => {
+            extensionOutput.removeEventListener("click", output.copy);
+        },
+        removePathname: () => {
+            pathnameOutput.removeEventListener("click", output.copy);
+        },
+        removeParameters: () => {
+            parametersOutput.removeEventListener("click", output.copy);
         }
     }
     let message = {
@@ -59,13 +92,31 @@
                 outputContainer[0].classList.remove("hide");
             }
         },
-        setOutputBlank: () => {
-            hostnameContainer.innerHTML = "";
-            relativePathContainer.innerHTML = "";
+        setProtocol: (e) => {
+            protocolOutput.innerHTML = e;
         },
-        setOutput: (hostname, relativePath) => {
-            hostnameContainer.innerHTML = hostname;
-            relativePathContainer.innerHTML = relativePath;
+        setSubdomain: (e) => {
+            subdomainOutput.innerHTML = e;
+        },
+        setDomain: (e) => {
+            domainOutput.innerHTML = e;
+        },
+        setExtension: (e) => {
+            extensionOutput.innerHTML = e;
+        },
+        setPathname: (e) => {
+            pathnameOutput.innerHTML = e;
+        },
+        setParameters: (e) => {
+            parametersOutput.innerHTML = e;
+        },
+        setAll: (e) => {
+            setProtocol(e);
+            setSubdomain(e);
+            setDomain(e);
+            setExtension(e);
+            setPathname(e);
+            setParameters(e);
         }
     }
     let parse = {
