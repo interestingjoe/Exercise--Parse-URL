@@ -21,7 +21,7 @@
 
     let listener = {
         setInput: () => {
-            inputForm.addEventListener("input", parse.control);
+            inputForm.addEventListener("input", parse.check);
         },
         setProtocol: () => {
             protocolOutput.addEventListener("click", output.copy);
@@ -43,7 +43,7 @@
         },
 
         removeInput: () => {
-            inputForm.removeEventListener("input", parse.control);
+            inputForm.removeEventListener("input", parse.check);
         },
         removeProtocol: () => {
             protocolOutput.removeEventListener("click", output.copy);
@@ -65,8 +65,8 @@
         }
     }
     let message = {
-        setCopied: () => {
-            messageContainer.innerHTML = "Copied!";
+        setMessage: (str) => {
+            messageContainer.innerHTML = str;
             setTimeout(message.blank(), 2000);
         },
         blank: () => {
@@ -78,10 +78,11 @@
             console.log("url: ", url);
             console.log("hostArr: ", hostArr);
             console.log("subdomain: ", subdomain);
+            console.log("");
         },
         copy: (e) => {
             console.log(e.target.innerHTML);
-            message.setCopied();
+            message.setMessage("Copied!");
         },
         hideOutput: (bool) => {
             isHide = bool;
@@ -111,30 +112,57 @@
             parametersOutput.innerHTML = e;
         },
         setAll: (e) => {
-            setProtocol(e);
-            setSubdomain(e);
-            setDomain(e);
-            setExtension(e);
-            setPathname(e);
-            setParameters(e);
+            output.setProtocol(e);
+            output.setSubdomain(e);
+            output.setDomain(e);
+            output.setExtension(e);
+            output.setPathname(e);
+            output.setParameters(e);
         }
     }
     let parse = {
         init: () => {
             listener.setInput();
         },
-        control: () => {
+        check: () => {
             let input = parse.getInput();
-            if(input) {
-                url = parse.setURL(input);
-                hostArr = parse.setHostArr(url.hostname);
-                subdomain = parse.setSubdomain(hostArr);
+
+            if(!parse.isBlank(input)) {
+                if(parse.isValidURL(input)) {
+                    console.log("Valid URL");
+                    parse.control(input);
+                } else {
+                    parse.reset();
+                    console.log("Invalid URL");
+                    message.setMessage("Please enter valid URL.");
+                }
             } else {
                 parse.reset();
+                console.log("Is blank");
             }
+
             output.toConsole();
         },
+        control: (input) => {
+            url = parse.setURL(input);
+            hostArr = parse.setHostArr(url.hostname);
+            subdomain = parse.setSubdomain(hostArr);
+        },
         getInput: () => inputForm.value,
+        isValidURL: (str) => {
+            let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+
+            if(!pattern.test(str)) {
+                return false;
+            } else {
+                return true;
+            }
+        },
         setURL: (e) => {
             return new URL(e);
         },
@@ -160,9 +188,10 @@
             url = "";
             hostArr = [];
             subdomain = "";
+            output.setAll("");
         },
         isBlank: (e) => {
-            return x = e==="" || e===" " || e==="undefined" ? true : false;
+            return x = e==="" || e===" " || e==="undefined" || e===null ? true : false;
         }
     }
 
