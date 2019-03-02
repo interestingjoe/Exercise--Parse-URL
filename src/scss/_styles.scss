@@ -19,16 +19,8 @@
                 margin: 0 0 15px;
                 font-size: .90em;
 
-                #tld {
+                span {
                     color: blue;
-                    cursor: pointer;
-
-                    &:hover {
-                        color: red;
-                    }
-                }
-                #relativePath {
-                    color: green;
                     cursor: pointer;
 
                     &:hover {

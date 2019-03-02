@@ -18,6 +18,7 @@
     let hostArr = [];
     let subdomain = "";
     let isHide = true;
+    let hasSubdomain = false;
 
     let listener = {
         setInput: () => {
@@ -75,10 +76,20 @@
     }
     let output = {
         toConsole: () => {
+            let len = hostArr.length;
             console.log("url: ", url);
             console.log("hostArr: ", hostArr);
             console.log("subdomain: ", subdomain);
             console.log("");
+            output.setProtocol(url.protocol);
+            if(hasSubdomain===true) {
+                output.setSubdomain(subdomain);
+            }
+            output.setDomain(hostArr[len-2]);
+            output.setExtension(hostArr[len-1]);
+            output.setPathname(url.pathname);
+//            output.setParameters(url.xxx);
+            output.hideOutput(false);
         },
         copy: (e) => {
             console.log(e.target.innerHTML);
@@ -113,11 +124,15 @@
         },
         setAll: (e) => {
             output.setProtocol(e);
-            output.setSubdomain(e);
+            if(hasSubdomain===true) {
+                output.setSubdomain(e);
+                parse.hasSubdomain(false);
+            }
             output.setDomain(e);
             output.setExtension(e);
             output.setPathname(e);
             output.setParameters(e);
+            output.hideOutput(true);
         }
     }
     let parse = {
@@ -129,15 +144,16 @@
 
             if(!parse.isBlank(input)) {
                 if(parse.isValidURL(input)) {
+                    parse.resetAll();
                     console.log("Valid URL");
                     parse.control(input);
                 } else {
-                    parse.reset();
+                    parse.resetAll();
                     console.log("Invalid URL");
                     message.setMessage("Please enter valid URL.");
                 }
             } else {
-                parse.reset();
+                parse.resetAll();
                 console.log("Is blank");
             }
         },
@@ -145,6 +161,12 @@
             url = parse.setURL(input);
             hostArr = parse.setHostArr(url.hostname);
             subdomain = parse.setSubdomain(hostArr);
+            if(parse.isBlank(subdomain)===true) {
+                parse.hasSubdomain(false);
+            } else {
+                parse.hasSubdomain(true);
+            }
+            console.log(hasSubdomain);
             output.toConsole();
         },
         getInput: () => inputForm.value,
@@ -183,7 +205,16 @@
             });
             return sub;
         },
-        reset: () => {
+        hasSubdomain: (bool) => {
+            hasSubdomain = bool;
+
+            if(hasSubdomain) {
+                document.getElementById("subdomain-dot").style.display = "inline-block";
+            } else {
+                document.getElementById("subdomain-dot").style.display = "none";
+            }
+        },
+        resetAll: () => {
             url = "";
             hostArr = [];
             subdomain = "";

@@ -109,15 +109,10 @@ form fieldset {
   #home .parser-container .outputContainer .output {
     margin: 0 0 15px;
     font-size: .90em; }
-    #home .parser-container .outputContainer .output #tld {
+    #home .parser-container .outputContainer .output span {
       color: blue;
       cursor: pointer; }
-      #home .parser-container .outputContainer .output #tld:hover {
-        color: red; }
-    #home .parser-container .outputContainer .output #relativePath {
-      color: green;
-      cursor: pointer; }
-      #home .parser-container .outputContainer .output #relativePath:hover {
+      #home .parser-container .outputContainer .output span:hover {
         color: red; }
 
 .hide {
