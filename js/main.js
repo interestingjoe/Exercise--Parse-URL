@@ -68,10 +68,10 @@
     let message = {
         setMessage: (str) => {
             messageContainer.innerHTML = str;
-            setTimeout(message.blank(), 2000);
         },
-        blank: () => {
-            messageContainer.innerHTML = "";
+        output: (str) => {
+            message.setMessage(str);
+            setTimeout(() => {message.setMessage("")}, 2000);
         }
     }
     let output = {
@@ -93,14 +93,16 @@
         },
         copy: (e) => {
             console.log(e.target.innerHTML);
-            message.setMessage("Copied!");
+            message.output("Copied!");
         },
         hideOutput: (bool) => {
             isHide = bool;
 
             if(isHide===true) {
+                listener.removeProtocol();
                 outputContainer[0].classList.add("hide");
             } else {
+                listener.setProtocol();
                 outputContainer[0].classList.remove("hide");
             }
         },
@@ -150,7 +152,7 @@
                 } else {
                     parse.resetAll();
                     console.log("Invalid URL");
-                    message.setMessage("Please enter valid URL.");
+                    message.output("Please enter valid URL.");
                 }
             } else {
                 parse.resetAll();
