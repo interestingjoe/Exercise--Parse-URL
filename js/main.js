@@ -100,9 +100,19 @@
 
             if(isHide===true) {
                 listener.removeProtocol();
+                listener.removeSubdomain();
+                listener.removeDomain();
+                listener.removeExtension();
+                listener.removePathname();
+                listener.removeParameters();
                 outputContainer[0].classList.add("hide");
             } else {
                 listener.setProtocol();
+                listener.setSubdomain();
+                listener.setDomain();
+                listener.setExtension();
+                listener.setPathname();
+                listener.setParameters();
                 outputContainer[0].classList.remove("hide");
             }
         },
