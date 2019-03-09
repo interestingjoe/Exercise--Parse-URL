@@ -110,6 +110,7 @@ form fieldset {
     margin: 0 0 15px;
     font-size: .90em; }
     #home .parser-container .outputContainer .output span {
+      display: table-cell;
       color: blue;
       cursor: pointer; }
       #home .parser-container .outputContainer .output span:hover {

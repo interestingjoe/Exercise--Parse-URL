@@ -6,8 +6,11 @@
 
     const protocolOutput = document.getElementById("protocol");
     const subdomainOutput = document.getElementById("subdomain");
+    const subdomainDot = document.getElementById("subdomain-dot");
     const domainOutput = document.getElementById("domain");
     const extensionOutput = document.getElementById("extension");
+    const portColon = document.getElementById("port-colon");
+    const portOutput = document.getElementById("port");
     const pathnameOutput = document.getElementById("pathname");
     const parametersOutput = document.getElementById("parameters");
 
@@ -19,6 +22,7 @@
     let subdomain = "";
     let isHide = true;
     let hasSubdomain = false;
+    let hasPort = false;
 
     let listener = {
         setInput: () => {
@@ -35,6 +39,9 @@
         },
         setExtension: () => {
             extensionOutput.addEventListener("click", output.copy);
+        },
+        setPort: () => {
+            portOutput.addEventListener("click", output.copy);
         },
         setPathname: () => {
             pathnameOutput.addEventListener("click", output.copy);
@@ -57,6 +64,9 @@
         },
         removeExtension: () => {
             extensionOutput.removeEventListener("click", output.copy);
+        },
+        removePort: () => {
+            portOutput.removeEventListener("click", output.copy);
         },
         removePathname: () => {
             pathnameOutput.removeEventListener("click", output.copy);
@@ -82,11 +92,15 @@
             console.log("subdomain: ", subdomain);
             console.log("");
             output.setProtocol(url.protocol);
-            if(hasSubdomain===true) {
+            if(hasSubdomain) {
                 output.setSubdomain(subdomain);
             }
             output.setDomain(hostArr[len-2]);
             output.setExtension(hostArr[len-1]);
+            if(hasPort) {
+                output.setPort(url.port);
+            }
+            console.log("url.port: ", url.port);
             output.setPathname(url.pathname);
 //            output.setParameters(url.xxx);
             output.hideOutput(false);
@@ -128,6 +142,9 @@
         setExtension: (e) => {
             extensionOutput.innerHTML = e;
         },
+        setPort: (e) => {
+            portOutput.innerHTML = e;
+        },
         setPathname: (e) => {
             pathnameOutput.innerHTML = e;
         },
@@ -136,7 +153,7 @@
         },
         setAll: (e) => {
             output.setProtocol(e);
-            if(hasSubdomain===true) {
+            if(hasSubdomain) {
                 output.setSubdomain(e);
                 parse.hasSubdomain(false);
             }
@@ -219,12 +236,11 @@
         },
         hasSubdomain: (bool) => {
             hasSubdomain = bool;
-
-            if(hasSubdomain) {
-                document.getElementById("subdomain-dot").style.display = "inline-block";
-            } else {
-                document.getElementById("subdomain-dot").style.display = "none";
-            }
+            !hasSubdomain ? subdomainDot.setAttribute("style", "display: none") : subdomainDot.removeAttribute("style");
+        },
+        hasPort: (bool) => {
+            hasPort = bool;
+            !url.port ? portColon.setAttribute("style", "display: none;") : portColon.removeAttribute("style");
         },
         resetAll: () => {
             url = "";
