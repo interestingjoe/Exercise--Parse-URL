@@ -19,8 +19,8 @@
                 margin: 0 0 15px;
                 font-size: .90em;
 
-                span {
-                    display: table-cell;
+                > div {
+                    display: inline-block;
                     color: blue;
                     cursor: pointer;
 

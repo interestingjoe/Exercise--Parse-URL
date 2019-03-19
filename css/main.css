@@ -12,14 +12,16 @@ body {
   font-size: 1em;
   line-height: 1em;
   font-weight: 400;
-  color: black; }
+  color: black;
+}
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: black;
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 p, span {
   margin: 0;
@@ -29,38 +31,47 @@ p, span {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   line-height: 1em;
-  font-weight: 400; }
+  font-weight: 400;
+}
 
 hr {
   margin: 20px 0;
   border: 0;
-  border-top: 1px solid lightgray; }
+  border-top: 1px solid lightgray;
+}
 
 img {
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 a {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   line-height: 1em;
   font-weight: 400;
-  color: black; }
-  a:hover {
-    text-decoration: none; }
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
 
 ol, ul {
   margin: 0;
   padding: 0;
   list-style: none;
-  vertical-align: top; }
-  ol li, ul li {
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    line-height: 1em;
-    font-weight: 400; }
+  vertical-align: top;
+}
+
+ol li, ul li {
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400;
+}
 
 button {
   padding: 13px 20px;
@@ -69,7 +80,8 @@ button {
   border-radius: 5px;
   color: white;
   background-color: lightskyblue;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 form fieldset {
   margin: 0;
@@ -77,44 +89,60 @@ form fieldset {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   line-height: 1em;
-  font-weight: 400; }
-  form fieldset legend {
-    margin: 0;
-    padding: 0;
-    border: initial;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    line-height: 1em;
-    font-weight: 400; }
-  form fieldset input {
-    margin: 0;
-    padding: 10px 20px;
-    border: 1px solid lightgray;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    line-height: 1em;
-    font-weight: 400; }
+  font-weight: 400;
+}
+
+form fieldset legend {
+  margin: 0;
+  padding: 0;
+  border: initial;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400;
+}
+
+form fieldset input {
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid lightgray;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 400;
+}
 
 #home .parser-container form {
-  margin: 0 0 30px; }
-  #home .parser-container form #input {
-    width: 96%;
-    padding: 15px 30px;
-    border: 1px solid black;
-    border-radius: 20px;
-    font-size: .90em; }
+  margin: 0 0 30px;
+}
+
+#home .parser-container form #input {
+  width: 96%;
+  padding: 15px 30px;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-size: .90em;
+}
 
 #home .parser-container .outputContainer {
-  margin: 0 30px; }
-  #home .parser-container .outputContainer .output {
-    margin: 0 0 15px;
-    font-size: .90em; }
-    #home .parser-container .outputContainer .output span {
-      display: table-cell;
-      color: blue;
-      cursor: pointer; }
-      #home .parser-container .outputContainer .output span:hover {
-        color: red; }
+  margin: 0 30px;
+}
+
+#home .parser-container .outputContainer .output {
+  margin: 0 0 15px;
+  font-size: .90em;
+}
+
+#home .parser-container .outputContainer .output > div {
+  display: inline-block;
+  color: blue;
+  cursor: pointer;
+}
+
+#home .parser-container .outputContainer .output > div:hover {
+  color: red;
+}
 
 .hide {
-  display: none; }
+  display: none;
+}

@@ -1,6 +1,6 @@
 /******************************
 To build Sass files:
-Build command: node-sass src/scss/ -o css/
+Build command: node-sass src/scss/ -o css/ --output-style expanded
 Build command convention: node-sass [source/directory] -o [destination/directory]
 ******************************/
 
